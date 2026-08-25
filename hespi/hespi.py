@@ -42,6 +42,7 @@ class Hespi():
         fuzzy: bool = True,
         fuzzy_cutoff: float = 0.8,
         htr: bool = True,
+        tesseract_psm: int = 6,
         llm_model: str = "gpt-4o",
         llm_api_key: str = "",
         llm_base_url: str = "",
@@ -58,6 +59,7 @@ class Hespi():
         self.fuzzy = fuzzy
         self.fuzzy_cutoff = fuzzy_cutoff
         self.htr = htr
+        self.tesseract_psm = tesseract_psm
         self.batch_size = batch_size
         self.sheet_component_res = sheet_component_res
         self.label_field_res = label_field_res
@@ -111,7 +113,7 @@ class Hespi():
 
     @cached_property
     def tesseract(self):
-        return Tesseract()
+        return Tesseract(psm=self.tesseract_psm)
 
     @cached_property
     def trocr(self):
@@ -420,12 +422,13 @@ class Hespi():
             
             detection_results[f"{field}_ocr_results"].append(
                 {
-                    'ocr': 'Tesseract', 
-                    'original_text_detected': tesseract_text, 
-                    'adjusted_text': adjusted_text, 
+                    'ocr': 'Tesseract',
+                    'original_text_detected': tesseract_text,
+                    'adjusted_text': adjusted_text,
                     'match_score': match_score,
+                    'psm': getattr(self.tesseract, 'psm', None),
                 }
-            )            
+            )
         
         return detection_results
 

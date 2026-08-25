@@ -71,6 +71,7 @@ def process_row_ocr_results(row, field_name):
     tesseract_original = []
     tesseract_adjusted = []
     tesseract_match_score = []
+    tesseract_psm = []
     llm_original = []
     llm_adjusted = []
     llm_match_score = []
@@ -84,6 +85,7 @@ def process_row_ocr_results(row, field_name):
             tesseract_original.append(d['original_text_detected'])
             tesseract_adjusted.append(d['adjusted_text'])
             tesseract_match_score.append(d['match_score'])
+            tesseract_psm.append(d.get('psm', ''))
         elif d['ocr'] == 'LLM':
             llm_original.append(d['original_text_detected'])
             llm_adjusted.append(d['adjusted_text'])
@@ -96,6 +98,7 @@ def process_row_ocr_results(row, field_name):
         f"{field_name}_Tesseract_original": tesseract_original,
         f"{field_name}_Tesseract_adjusted": tesseract_adjusted,
         f"{field_name}_Tesseract_match_score": tesseract_match_score,
+        f"{field_name}_Tesseract_psm": tesseract_psm,
         f"{field_name}_LLM_original": llm_original,
         f"{field_name}_LLM_adjusted": llm_adjusted,
         f"{field_name}_LLM_match_score": llm_match_score,

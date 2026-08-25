@@ -30,6 +30,12 @@ def detect(
         True,
         help="Whether or not to do handwritten text recognition using Microsoft's TrOCR.",
     ),
+    tesseract_psm: int = typer.Option(
+        6,
+        help="The Tesseract Page Segmentation Mode (PSM) to use when OCRing field crops. "
+        "PSM 6 (assume a single uniform block of text) is tuned for small field crops rather than full pages; "
+        "use 3 for Tesseract's own default fully-automatic page segmentation.",
+    ),
     llm: str = typer.Option(
         "gpt-4o",
         help="The Large Language Model to use. Currently OpenAI, Anthropic Claude, and OpenAPI compatible models are supported. For OpenAPI compatible models, also specify --llm-base-url.",
@@ -92,6 +98,7 @@ def detect(
         llm_base_url=llm_base_url,
         llm_temperature=llm_temperature,
         htr=htr,
+        tesseract_psm=tesseract_psm,
         batch_size=batch_size,
         sheet_component_res=sheet_component_res,
         label_field_res=label_field_res,

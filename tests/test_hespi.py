@@ -87,6 +87,24 @@ def test_reference():
 def test_tesseract():
     hespi = Hespi()
     assert isinstance(hespi.tesseract, Tesseract)
+    assert hespi.tesseract.psm == 6
+
+
+@patch("hespi.llm.ChatOpenAI", mock_llm)
+def test_tesseract_custom_psm():
+    hespi = Hespi(tesseract_psm=3)
+    assert hespi.tesseract.psm == 3
+
+
+@patch("hespi.llm.ChatOpenAI", mock_llm)
+def test_read_field_file_tesseract_records_psm():
+    hespi = Hespi(htr=False, fuzzy=True, tesseract_psm=6)
+    image = Path("species.jpg")
+    hespi.tesseract = Tesseract(psm=6)
+    with patch('pytesseract.image_to_string', return_value="zostericola"):
+        result = hespi.read_field_file(image)
+
+    assert result["species_ocr_results"][0]['psm'] == 6
 
 
 @patch('transformers.TrOCRProcessor.from_pretrained', lambda *args: MockProcessor() )

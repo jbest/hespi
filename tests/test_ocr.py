@@ -18,9 +18,18 @@ def test_abstract_class():
 def test_tesseract(mock_image_to_string):
     t = ocr.Tesseract()
     assert t.no_tesseract == False
+    assert t.psm == 6
     assert t.get_text('path') == "recognized text"
     assert t.no_tesseract == False
-    mock_image_to_string.assert_called_once()
+    mock_image_to_string.assert_called_once_with('path', config="--psm 6")
+
+
+@patch('pytesseract.image_to_string', return_value="recognized text")
+def test_tesseract_custom_psm(mock_image_to_string):
+    t = ocr.Tesseract(psm=3)
+    assert t.psm == 3
+    assert t.get_text('path') == "recognized text"
+    mock_image_to_string.assert_called_once_with('path', config="--psm 3")
 
 
 def raise_exception(*args):
