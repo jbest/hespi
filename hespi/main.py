@@ -80,6 +80,9 @@ def detect(
     """
     HErbarium Specimen sheet PIpeline
 
+    EXPERIMENTAL FORK: this is an unofficial fork, not affiliated with the original authors.
+    For general use, prefer the original project: https://github.com/rbturnbull/hespi
+
     Takes a herbarium specimen sheet image detects components such as the primary specimen label, swatch, etc.
     It then classifies whether the primary specimen label is printed, typed, handwritten or a combination.
     If then detects the fields of the primary specimen label and attempts to read them through OCR and HTR models.

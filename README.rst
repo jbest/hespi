@@ -4,6 +4,21 @@ hespi
 
 .. image:: https://raw.githubusercontent.com/rbturnbull/hespi/main/docs/images/hespi-banner.svg
 
+.. start-disclaimer
+
+.. warning::
+
+    **This is an experimental, unofficial fork of hespi.** It is maintained independently and is
+    not affiliated with, endorsed by, or supported by the original authors.
+
+    For general use, please use the original, actively maintained project instead:
+    `rbturnbull/hespi <https://github.com/rbturnbull/hespi>`_
+    (`PyPI package <https://pypi.org/project/hespi/>`_).
+
+    See `Why This Fork Exists`_ below for details on what has changed and why.
+
+.. end-disclaimer
+
 .. start-badges
 
 |pypi badge| |testing badge| |coverage badge| |docs badge| |black badge| |doi badge|
@@ -117,6 +132,36 @@ Training with custom data
 To train the model with custom data, see the documention.
 
 .. end-quickstart
+
+Why This Fork Exists
+==================================
+
+.. start-fork-notes
+
+This fork exists to make hespi easier to install with more current dependencies, without changing
+its behaviour or algorithms. The upstream project pins ``python = ">=3.10,<3.12"`` and depends on
+``torchapp``, whose only usable releases require Python <3.12 (its newer releases dropped fastai in
+a way that can no longer load hespi's existing pretrained classifier weights). That, combined with
+an unbounded ``langchain`` dependency that could resolve to a breaking major version, made a plain
+install increasingly fragile on current Python versions.
+
+Changes made in this fork:
+
+- **Dropped the ``torchapp`` dependency.** The one place hespi used it (the primary specimen label
+  classifier) now loads the pretrained fastai model directly via ``fastai.learner.load_learner``,
+  with a small compatibility shim so the existing pretrained weights still load unchanged.
+- **Added support for Python 3.12 and 3.13** (previously capped at ``<3.12``).
+- **Fixed the ``langchain`` imports** in ``hespi/llm.py`` to use the stable ``langchain_core``
+  module, so hespi keeps working whether ``langchain`` resolves to a 0.2.x or a 1.x release, and
+  removed the now-unnecessary version cap on ``langchain-anthropic``.
+- **Defaulted Tesseract to ``--psm 6``** for field-crop OCR, since field crops are small
+  single-value images rather than full pages, and Tesseract's implicit default (PSM 3) was leaving
+  short fields such as ``day`` empty. Exposed as ``--tesseract-psm`` on the CLI.
+
+All existing tests pass, and the pipeline has been verified end-to-end, including with the real
+pretrained model weights, on Python 3.10 through 3.13.
+
+.. end-fork-notes
 
 Credits
 ==================================

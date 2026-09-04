@@ -7,6 +7,10 @@ Hespi
 ===========================================================
 
 .. include:: ../README.rst
+   :start-after: start-disclaimer
+   :end-before: end-disclaimer
+
+.. include:: ../README.rst
    :start-after: start-badges
    :end-before: end-badges
 
@@ -16,6 +20,7 @@ Hespi
    :maxdepth: 2
    :caption: Contents:
 
+   fork-notes
    quickstart
    pipeline
    reproduce
