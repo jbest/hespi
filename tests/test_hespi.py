@@ -4,7 +4,7 @@ from typing import Dict
 from hespi import Hespi
 import pandas as pd
 from unittest.mock import patch
-from torchapp.examples.image_classifier import ImageClassifier
+from hespi.classifier import PrimaryLabelClassifier
 from hespi.ocr import Tesseract, TrOCR, TrOCRSize, OCR
 
 from .test_ocr import MockProcessor, MockModel
@@ -74,7 +74,7 @@ def test_primary_specimen_label_classifier():
         primary_specimen_label_classifier_weights=weights
     )
     model = hespi.primary_specimen_label_classifier
-    assert isinstance(model, ImageClassifier)
+    assert isinstance(model, PrimaryLabelClassifier)
     assert model.pretrained == weights
 
 

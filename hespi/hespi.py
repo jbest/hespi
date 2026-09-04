@@ -101,9 +101,9 @@ class Hespi():
 
     @cached_property
     def primary_specimen_label_classifier(self):
-        from torchapp.examples.image_classifier import ImageClassifier
+        from .classifier import PrimaryLabelClassifier
 
-        model = ImageClassifier()
+        model = PrimaryLabelClassifier()
         model.pretrained = get_location(self.primary_specimen_label_classifier_weights, force=self.force_download)
         return model
 

@@ -59,10 +59,14 @@ def test_build_template():
         ],
     }
     template = build_template(primary_specimen_label_image, detection_results)
+    messages = template.invoke({}).to_messages()
+    human_message = messages[1]
+    image_content = next(part for part in human_message.content if part["type"] == "image_url")
+    assert "ata:image/jpeg;base64,/9j/4AAQSkZJRg" in image_content["image_url"]["url"]
+
     template_string = template.invoke({}).to_string()
     assert template_string is not None
     assert template_string.startswith("System: You are an expert")
-    assert "ata:image/jpeg;base64,/9j/4AAQSkZJRg" in template_string
     assert "The Tesseract model thought the family was 'Piurnosazedie' and it was adjusted to 'Piurnosacedie'" in template_string
     assert "The TrOCR model thought the species was 'hilli'" in template_string
     assert "\nAI: Certainly, here are the corrections:" in template_string
