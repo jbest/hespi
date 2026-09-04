@@ -81,6 +81,8 @@ It is recommended that you also install `Tesseract <https://tesseract-ocr.github
 
 To install the development version, see the `documentation for contributing <https://rbturnbull.github.io/hespi/contributing.html>`_.
 
+To install *this fork* directly into another project (e.g. from git, pinned to a tag), see `INSTALL.md <INSTALL.md>`_.
+
 
 Usage
 ==================================
