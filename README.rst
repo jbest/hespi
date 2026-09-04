@@ -21,22 +21,10 @@ hespi
 
 .. start-badges
 
-|pypi badge| |testing badge| |coverage badge| |docs badge| |black badge| |doi badge|
+|black badge| |doi badge|
 
-.. |pypi badge| image:: https://img.shields.io/pypi/v/hespi?color=blue
-    :target: https://pypi.org/project/hespi/
-
-.. |testing badge| image:: https://github.com/rbturnbull/hespi/actions/workflows/testing.yml/badge.svg
-    :target: https://github.com/rbturnbull/hespi/actions
-
-.. |docs badge| image:: https://github.com/rbturnbull/hespi/actions/workflows/docs.yml/badge.svg
-    :target: https://rbturnbull.github.io/hespi
-    
 .. |black badge| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
-    
-.. |coverage badge| image:: https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/rbturnbull/f31036b00473b6d0af3a160ea681903b/raw/coverage-badge.json
-    :target: https://rbturnbull.github.io/hespi/coverage/
 
 .. |doi badge| image:: https://img.shields.io/badge/DOI-10.1093/biosci/biaf042-blue.svg
    :target: https://doi.org/10.1093/biosci/biaf042
